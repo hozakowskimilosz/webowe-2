@@ -3,6 +3,8 @@ import axios from "axios";
 import {API_URL} from "./constants";
 
 function App() {
+    const [login, setLogin] = useState("");
+    const [password, setPassword] = useState("");
 
     const [notes, setNotes] = useState([]);
     const [newNote, setNewNote] = useState({note_text: "", username: ""});
@@ -78,6 +80,25 @@ function App() {
 
     return (
         <div>
+            <h1>Login Panel</h1>
+            <div>
+                <input
+                    type="text"
+                    placeholder="login"
+                    name="login"
+                    value={login}
+                    onChange={(e) => setLogin(e.target.value)}
+                />
+                <input
+                    type="password"
+                    placeholder="password"
+                    name="password"
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                />
+                <button>Login</button>
+            </div>
+
             <h1>Notes App</h1>
             <div>
                 <input
