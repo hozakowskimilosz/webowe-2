@@ -36,3 +36,17 @@ class CreateNoteView(APIView):
 class CreateUserView(generics.CreateAPIView):
     queryset = User.objects.all()
     serializer_class = UserSerializer
+
+class LogInView(APIView):
+    def post(self, request):
+        username = request.data.get('login')
+        password = request.data.get('password')
+        userObjects = User.objects.all().values()
+        
+        correctCredentials = False
+        for user in userObjects:
+            if user['username'] == username and user['password'] == password:
+                correctCredentials = True
+        if correctCredentials: 
+            return Response({'message': 'Logged in'}, status=status.HTTP_201_CREATED)
+        return Response({'error': 'Wrong credentials'})
