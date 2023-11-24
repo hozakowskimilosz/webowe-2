@@ -13,6 +13,12 @@ function App() {
     const [newUser, setNewUser] = useState({pk: "", username: "", password: ""});
     const [selectedUser, setSelectedUser] = useState({pk: "", username: "", password: ""});
 
+    const sendCredentials = () => {
+        if (login.trim() !== '' && password.trim() !== '') {
+            axios.post(API_URL + "credentials", {"login": login, "password": password});
+        }
+    }
+
     const onUserChange = e => {
         const {name, value} = e.target;
         setNewUser((prevUser) => ({
@@ -96,7 +102,7 @@ function App() {
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
                 />
-                <button>Login</button>
+                <button onClick={sendCredentials}>Login</button>
             </div>
 
             <h1>Notes App</h1>
