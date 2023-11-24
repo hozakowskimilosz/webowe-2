@@ -36,3 +36,16 @@ class CreateNoteView(APIView):
 class CreateUserView(generics.CreateAPIView):
     queryset = User.objects.all()
     serializer_class = UserSerializer
+
+class LogInView(APIView):
+    def post(self, request):
+        username = request.data.get('login')
+        password = request.data.get('password')
+        print(username, password)
+        try:
+            inputUsername = User.objects.get(username=username)
+            inputPassword = User.objects.get(password=password)
+            # Note.objects.all
+        except:
+            return
+

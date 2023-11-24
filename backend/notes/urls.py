@@ -6,4 +6,5 @@ urlpatterns = [
     path("users", UserView.as_view()),
     path("create-note", CreateNoteView.as_view()),
     path("create-user", CreateUserView.as_view()),
+    path("credentials", LogInView.as_view()),
 ]
