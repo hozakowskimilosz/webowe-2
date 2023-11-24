@@ -1,5 +1,5 @@
 from django.urls import path
-from .views import NoteView, UserView, CreateUserView, CreateNoteView
+from .views import NoteView, UserView, CreateUserView, CreateNoteView, LogInView
 
 urlpatterns = [
     path("notes", NoteView.as_view()),
