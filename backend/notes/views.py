@@ -41,11 +41,12 @@ class LogInView(APIView):
     def post(self, request):
         username = request.data.get('login')
         password = request.data.get('password')
-        print(username, password)
-        try:
-            inputUsername = User.objects.get(username=username)
-            inputPassword = User.objects.get(password=password)
-            # Note.objects.all
-        except:
-            return
-
+        userObjects = User.objects.all().values()
+        
+        correctCredentials = False
+        for user in userObjects:
+            if user['username'] == username and user['password'] == password:
+                correctCredentials = True
+        if correctCredentials: 
+            return Response({'message': 'Logged in'}, status=status.HTTP_201_CREATED)
+        return Response({'error': 'Wrong credentials'})
