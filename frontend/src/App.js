@@ -115,26 +115,27 @@ function App() {
                 <button onClick={sendCredentials}>Login</button>
             </div>
 
+            <div>
+                <input
+                    type="text"
+                    placeholder="username"
+                    name="username"
+                    value={newUser.username}
+                    onChange={(e) => onUserChange(e)}
+                />
+                <input
+                    type="password"
+                    placeholder="password"
+                    name="password"
+                    value={newUser.password}
+                    onChange={(e) => onUserChange(e)}
+                />
+                <button onClick={addUser}>Add</button>
+            </div>
+
             {isLogged && 
                 <>
                     <h1>Notes App</h1>
-                    <div>
-                        <input
-                            type="text"
-                            placeholder="username"
-                            name="username"
-                            value={newUser.username}
-                            onChange={(e) => onUserChange(e)}
-                        />
-                        <input
-                            type="password"
-                            placeholder="password"
-                            name="password"
-                            value={newUser.password}
-                            onChange={(e) => onUserChange(e)}
-                        />
-                        <button onClick={addUser}>Add</button>
-                    </div>
                     <div>
                         <input
                             type="text"
