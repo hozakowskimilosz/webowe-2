@@ -39,14 +39,14 @@ class CreateUserView(generics.CreateAPIView):
 
 class LogInView(APIView):
     def post(self, request):
-        try:
-            username = request.data.get('login')
-            password = request.data.get('password')
-        except Exception as e:
-            return Response({'error': 'Invalid request data format'}, status=status.HTTP_400_BAD_REQUEST)
-
-        try:
-            user = User.objects.get(username=username, password=password)
+        username = request.data.get('login')
+        password = request.data.get('password')
+        userObjects = User.objects.all().values()
+        
+        correctCredentials = False
+        for user in userObjects:
+            if user['username'] == username and user['password'] == password:
+                correctCredentials = True
+        if correctCredentials: 
             return Response({'message': 'Logged in'}, status=status.HTTP_201_CREATED)
-        except User.DoesNotExist:
-            return Response({'error': 'Wrong credentials'}, status=status.HTTP_401_UNAUTHORIZED)
+        return Response({'error': 'Wrong credentials'})
