@@ -8,6 +8,8 @@ from rest_framework.views import APIView
 from .serializers import NoteSerializer, UserSerializer
 from .models import Note, User
 
+from .session import Session
+
 class NoteView(generics.ListAPIView):
     queryset = Note.objects.all()
     serializer_class = NoteSerializer
@@ -36,6 +38,8 @@ class CreateUserView(generics.CreateAPIView):
     queryset = User.objects.all()
     serializer_class = UserSerializer
 
+s = Session()
+
 class LogInView(APIView):
     def post(self, request):
         try:
@@ -46,6 +50,8 @@ class LogInView(APIView):
 
         try:
             user = User.objects.get(username=username, password=password)
-            return Response({'message': 'Logged in'}, status=status.HTTP_201_CREATED)
+            s.add_user(username)
+            print(s.session)
+            return Response({'message': 'Logged in', 'session': s.id}, status=status.HTTP_201_CREATED)
         except User.DoesNotExist:
             return Response({'error': 'Wrong credentials'}, status=status.HTTP_401_UNAUTHORIZED)
