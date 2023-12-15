@@ -19,6 +19,7 @@ function App() {
           axios.post(API_URL + "credentials", {"login": login, "password": password})
             .then(response => {
               alert("Logged in");
+              localStorage.setItem("sessionId", response.data.session);
               setIsLogged(true);
             })
             .catch(error => {
