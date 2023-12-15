@@ -7,7 +7,6 @@ from rest_framework.views import APIView
 
 from .serializers import NoteSerializer, UserSerializer
 from .models import Note, User
-from .sessions import Sessions
 
 
 class NoteView(generics.ListAPIView):
@@ -49,7 +48,5 @@ class LogInView(APIView):
             if user['username'] == username and user['password'] == password:
                 correctCredentials = True
         if correctCredentials: 
-            s = Sessions(username)
-            s.sessionLogin
             return Response({'message': 'Logged in'}, status=status.HTTP_201_CREATED)
         return Response({'error': 'Wrong credentials'})
