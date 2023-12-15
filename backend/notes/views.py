@@ -10,6 +10,8 @@ from .models import Note, User
 
 from .session import Session
 
+import uuid
+
 class NoteView(generics.ListAPIView):
     queryset = Note.objects.all()
     serializer_class = NoteSerializer
@@ -38,8 +40,6 @@ class CreateUserView(generics.CreateAPIView):
     queryset = User.objects.all()
     serializer_class = UserSerializer
 
-s = Session()
-
 class LogInView(APIView):
     def post(self, request):
         try:
@@ -50,8 +50,10 @@ class LogInView(APIView):
 
         try:
             user = User.objects.get(username=username, password=password)
-            s.add_user(username)
+            s = Session()       
+            id = uuid.uuid1()
+            s.add_user(username, id)
             print(s.session)
-            return Response({'message': 'Logged in', 'session': s.id}, status=status.HTTP_201_CREATED)
+            return Response({'message': 'Logged in', 'session': id}, status=status.HTTP_201_CREATED)
         except User.DoesNotExist:
             return Response({'error': 'Wrong credentials'}, status=status.HTTP_401_UNAUTHORIZED)
