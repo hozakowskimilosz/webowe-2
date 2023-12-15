@@ -8,7 +8,6 @@ from rest_framework.views import APIView
 from .serializers import NoteSerializer, UserSerializer
 from .models import Note, User
 
-
 class NoteView(generics.ListAPIView):
     queryset = Note.objects.all()
     serializer_class = NoteSerializer
